@@ -80,6 +80,16 @@ The repository ships with `render.yaml` for one-click Render deployment.
 
 The `Dockerfile` uses `python:3.12-slim` and binds `uvicorn` to `$PORT` (Render sets it to `10000` by default; we override the CMD to honour it).
 
+## Documentation UI
+
+The interactive API explorer at `/docs` is the default FastAPI Swagger UI, lightly themed for the hackathon:
+
+- a custom stylesheet at `app/static/swagger.css` is served from `/static` and injected via `swagger_ui_parameters.customCssUrl`,
+- schemas are collapsed by default (`defaultModelsExpandDepth=-1`) and the search/filter bar is enabled,
+- the URL bar and "Download" link are hidden to reduce visual noise for judges visiting `/docs`.
+
+No endpoints, schemas, or response shapes are changed by the theming — only how the `/docs` page is presented.
+
 ## Docker
 
 ```bash

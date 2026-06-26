@@ -1,0 +1,182 @@
+/* QueueStorm Investigator — Swagger UI refinements
+   Goal: calmer palette, less visual noise, more breathing room.
+   Strategy: override CSS variables Swagger UI exposes + a handful of
+   high-level selectors. Avoid `!important` where possible. */
+
+:root {
+    /* Brand palette */
+    --qsi-primary: #1f6feb;
+    --qsi-primary-hover: #1158c7;
+    --qsi-bg: #f6f8fb;
+    --qsi-panel: #ffffff;
+    --qsi-border: #e1e6ee;
+    --qsi-text: #1c2128;
+    --qsi-muted: #5b6471;
+    --qsi-accent-soft: #eef3fb;
+
+    /* Override Swagger CSS variables (these are exposed by swagger-ui) */
+    --primary-color: var(--qsi-primary);
+    --primary-color-hover: var(--qsi-primary-hover);
+    --text-color: var(--qsi-text);
+    --text-color-secondary: var(--qsi-muted);
+    --bg-color: var(--qsi-bg);
+    --bg-fill-primary: var(--qsi-panel);
+    --bg-fill-secondary: var(--qsi-accent-soft);
+    --border-color: var(--qsi-border);
+    --header-height: 64px;
+    --info-font-size: 14px;
+}
+
+html, body {
+    background: var(--bg-color);
+    color: var(--text-color);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                 "Helvetica Neue", Arial, sans-serif;
+}
+
+.topbar {
+    background: var(--qsi-panel);
+    border-bottom: 1px solid var(--qsi-border);
+    padding: 8px 0;
+    box-shadow: none;
+}
+
+.topbar-wrapper img {
+    /* Slight logo bump so the title reads cleanly */
+    height: 36px;
+    width: auto;
+}
+
+.topbar-wrapper .link {
+    color: var(--text-color);
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.swagger-ui .info {
+    margin: 24px 0;
+    padding: 20px 24px;
+    background: var(--qsi-panel);
+    border: 1px solid var(--qsi-border);
+    border-radius: 8px;
+}
+
+.swagger-ui .info .title {
+    font-size: 28px;
+    color: var(--text-color);
+}
+
+.swagger-ui .info .description p,
+.swagger-ui .info .description li {
+    color: var(--text-color-secondary);
+    line-height: 1.55;
+}
+
+.swagger-ui .scheme-container {
+    background: var(--qsi-panel);
+    border: 1px solid var(--qsi-border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    box-shadow: none;
+    margin: 16px 0;
+}
+
+.swagger-ui .opblock-tag {
+    border: 1px solid var(--qsi-border);
+    border-radius: 8px;
+    margin: 0 0 8px 0;
+    background: var(--qsi-panel);
+}
+
+.swagger-ui .opblock-tag-section h3 {
+    font-weight: 600;
+}
+
+.swagger-ui .opblock {
+    border-radius: 8px;
+    border-width: 1px;
+    margin: 0 0 12px 0;
+    box-shadow: none;
+}
+
+.swagger-ui .opblock-summary {
+    border-radius: 8px;
+}
+
+.swagger-ui .opblock-body pre,
+.swagger-ui .opblock-body table {
+    border-radius: 6px;
+}
+
+.swagger-ui .btn {
+    border-radius: 6px;
+    transition: background-color 120ms ease, border-color 120ms ease;
+}
+
+.swagger-ui .btn.execute {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.swagger-ui .btn.execute:hover {
+    background: var(--primary-color-hover);
+    border-color: var(--primary-color-hover);
+}
+
+.swagger-ui .responses-inner h4,
+.swagger-ui .responses-inner h5 {
+    color: var(--text-color);
+}
+
+.swagger-ui .response-col_status {
+    font-weight: 600;
+}
+
+/* Trim the "Schemas" expansion depth so the bottom isn't 200 lines tall by default */
+.swagger-ui .model-box {
+    background: var(--bg-fill-secondary);
+    border-radius: 6px;
+}
+
+/* Hide the download URL box; nobody clicks it on a hackathon submission */
+.swagger-ui .download-url-wrapper {
+    display: none;
+}
+
+/* Keep code blocks readable on smaller screens */
+.swagger-ui .highlight-code pre {
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* Make the input/textarea fields easier on the eyes */
+.swagger-ui input[type="text"],
+.swagger-ui input[type="password"],
+.swagger-ui input[type="search"],
+.swagger-ui textarea,
+.swagger-ui select {
+    border: 1px solid var(--qsi-border);
+    border-radius: 6px;
+    padding: 6px 10px;
+    background: var(--qsi-panel);
+    color: var(--text-color);
+}
+
+.swagger-ui input:focus,
+.swagger-ui textarea:focus,
+.swagger-ui select:focus {
+    outline: 2px solid var(--qsi-primary);
+    outline-offset: 1px;
+    border-color: var(--qsi-primary);
+}
+
+/* Reduce the giant padding around the body for a tighter feel */
+.swagger-ui .wrapper {
+    max-width: 1200px;
+    padding: 0 20px 40px 20px;
+}
+
+/* Tag colour overrides: use a calm grey for the default scheme selector */
+.swagger-ui .scheme-container .schemes {
+    color: var(--text-color-secondary);
+}
