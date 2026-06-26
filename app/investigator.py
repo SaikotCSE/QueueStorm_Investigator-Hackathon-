@@ -26,13 +26,77 @@ class CaseDecision:
 
 
 COMPLAINT_KEYWORDS = {
-    "wrong_transfer": ["wrong number", "wrong account", "sent to wrong", "mistaken transfer", "wrong recipient"],
-    "payment_failed": ["payment failed", "failed payment", "deducted", "money gone", "charged but failed"],
-    "refund_request": ["refund", "money back", "return my money", "reversal"],
-    "duplicate_payment": ["charged twice", "duplicate", "double charged", "same payment twice"],
-    "merchant_settlement_delay": ["settlement", "merchant not received", "merchant payout", "merchant settlement"],
-    "agent_cash_in_issue": ["cash in", "agent cash", "agent did not add", "deposit through agent"],
-    "phishing_or_social_engineering": ["otp", "pin", "password", "suspicious call", "scam", "phishing", "hack"],
+    "wrong_transfer": [
+        # English
+        "wrong number", "wrong account", "sent to wrong", "mistaken transfer", "wrong recipient",
+        # Banglish (romanized Bangla)
+        "vul number", "vul number e", "vul number e pathiechi", "vul number e taka pathiechi",
+        "vul number e pathalam", "bhul number", "bhul number e", "vul account", "bhul account",
+        "vul manush", "vul lok", "taka vul number e", "taka vul manush ke", "taka bhul number e",
+        "sent to wrong", "send to wrong", "send korlam vul", "vul e pathiechi", "vul e pathalam",
+        # Bangla (Unicode)
+        "ভুল নম্বরে", "ভুল নাম্বারে", "ভুল নাম্বার", "ভুল অ্যাকাউন্টে", "ভুল একাউন্টে",
+        "ভুল মানুষকে", "ভুল নম্বর", "ভুল নাম্বার", "ভুলে টাকা", "ভুলে পাঠিয়েছি",
+        "ভুলে পাঠালাম", "ভুল ট্রান্সফার",
+    ],
+    "payment_failed": [
+        # English
+        "payment failed", "failed payment", "deducted", "money gone", "charged but failed",
+        # Banglish
+        "payment fail", "payment hocche na", "payment hoy nai", "taka keteche", "taka kete geche",
+        "taka gone", "taka katche na", "taka katena", "deduct hoyeche", "katte parchi na",
+        # Bangla
+        "পেমেন্ট ব্যর্থ", "পেমেন্ট ফেইল", "টাকা কেটে গেছে", "টাকা কাটা হয়েছে", "টাকা কেটেছে",
+        "টাকা গেছে", "পেমেন্ট হচ্ছে না", "পেমেন্ট হয়নি",
+    ],
+    "refund_request": [
+        # English
+        "refund", "money back", "return my money", "reversal",
+        # Banglish
+        "taka ferat", "taka ferot", "taka fira", "taka uthano", "ferot chai", "ferat chai",
+        "taka pabo", "taka pawa jabe", "refund chai", "money back chai",
+        # Bangla
+        "টাকা ফেরত", "টাকা ফেরত চাই", "টাকা ফেরত দিন", "রিফান্ড", "টাকা উঠান",
+        "টাকা ফেরত পাব",
+    ],
+    "duplicate_payment": [
+        # English
+        "charged twice", "duplicate", "double charged", "same payment twice",
+        # Banglish
+        "do bar charge", "dui bar cut", "duibar keteche", "abar keteche", "double katche",
+        "duplicate payment", "dobbar charge",
+        # Bangla
+        "দুইবার চার্জ", "দুইবার কেটেছে", "আবার কেটেছে", "ডুপ্লিকেট পেমেন্ট",
+    ],
+    "merchant_settlement_delay": [
+        # English
+        "settlement", "merchant not received", "merchant payout", "merchant settlement",
+        # Banglish
+        "merchant taka pai nai", "merchant pabeni", "merchant paisa nai", "settlement delay",
+        "payout delay", "merchant payment hold",
+        # Bangla
+        "মার্চেন্ট পেমেন্ট", "মার্চেন্ট টাকা পাইনি", "সেটেলমেন্ট", "পেমেন্ট পাইনি",
+        "মার্চেন্ট পেমেন্ট আটকে",
+    ],
+    "agent_cash_in_issue": [
+        # English
+        "cash in", "agent cash", "agent did not add", "deposit through agent",
+        # Banglish
+        "agent taka diyechi", "agent kache taka diyechi", "agent cash in koreni",
+        "agent taka add koreni", "deposit hoy nai",
+        # Bangla
+        "এজেন্ট ক্যাশ ইন", "এজেন্ট টাকা দিয়েছি", "এজেন্ট টাকা যোগ করেনি", "ক্যাশ ইন হয়নি",
+    ],
+    "phishing_or_social_engineering": [
+        # English
+        "otp", "pin", "password", "suspicious call", "scam", "phishing", "hack",
+        # Banglish
+        "otp dilam", "pin dilam", "password dilam", "scam hoyeche", "phishing hoyeche",
+        "hack hoyeche", "jhamela", "dhokhabeli", "dhorabo", "fake call", "fake message",
+        # Bangla
+        "ওটিপি দিয়েছি", "পিন দিয়েছি", "পাসওয়ার্ড দিয়েছি", "স্ক্যাম", "ফিশিং", "হ্যাক",
+        "ধোকাবাজি", "প্রতারণা",
+    ],
 }
 
 DEPARTMENT_BY_CASE = {

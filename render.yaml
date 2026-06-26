@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: queuestorm-investigator
+    runtime: docker
+    plan: free
+    autoDeploy: true
+    healthCheckPath: /health
+    dockerContext: .
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: PYTHONUNBUFFERED
+        value: "1"
+      - key: PYTHONDONTWRITEBYTECODE
+        value: "1"

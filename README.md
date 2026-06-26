@@ -8,6 +8,7 @@ The first version is rule-based and deterministic. That keeps latency low, makes
 
 - matches the complaint against transaction history to infer the most relevant transaction
 - classifies the case into the exact taxonomy required by the problem statement
+- supports **English, Banglish (romanized Bangla), and Bangla (Unicode)** complaint text
 - assigns department, severity, and human-review flags
 - generates safe agent and customer responses
 - refuses unsafe prompt-injection and credential-request patterns
@@ -62,9 +63,22 @@ No external model is used in the current implementation.
 ```bash
 python -m venv .venv
 source .venv/bin/activate
-pip install -e .
+pip install -e .[dev]
 uvicorn app.main:app --host 0.0.0.0 --port 8000
 ```
+
+## Deployment (Render)
+
+The repository ships with `render.yaml` for one-click Render deployment.
+
+1. Push the repository to GitHub.
+2. In Render, choose **New +** → **Blueprint**, point it at the repo.
+3. Render will detect `render.yaml`, build the `Dockerfile`, and deploy as a free web service.
+4. Once live, the service URL responds to:
+   - `GET /health` → `{"status":"ok"}`
+   - `POST /analyze-ticket` with the JSON body documented above.
+
+The `Dockerfile` uses `python:3.12-slim` and binds `uvicorn` to `$PORT` (Render sets it to `10000` by default; we override the CMD to honour it).
 
 ## Docker
 
