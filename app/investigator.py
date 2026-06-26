@@ -141,11 +141,35 @@ def history_sorted(history: list[TransactionEntry]) -> list[TransactionEntry]:
     return sorted(history, key=parse_time, reverse=True)
 
 
+# Priority scores for infer_case_type. When a complaint matches keywords from
+# multiple buckets, the bucket with the highest score wins. Phishing / fraud
+# indicators (OTP, PIN, scam, phishing) always beat a refund request because
+# fraud risk is a safety escalation (§7.2 maps phishing → fraud_risk).
+# "other" is the fallback when nothing matches.
+CASE_TYPE_PRIORITY: dict[str, int] = {
+    "phishing_or_social_engineering": 100,  # fraud indicators always escalate (§7.2)
+    "duplicate_payment": 60,                # more specific than payment_failed when both match
+    "wrong_transfer": 50,
+    "payment_failed": 50,
+    "refund_request": 50,
+    "merchant_settlement_delay": 50,
+    "agent_cash_in_issue": 50,
+    "other": 0,
+}
+
+
 def infer_case_type(complaint: str, history: list[TransactionEntry]) -> str:
     normalized = normalize_text(complaint)
+    matches: list[tuple[int, str]] = []
     for case_type, phrases in COMPLAINT_KEYWORDS.items():
         if any(phrase in normalized for phrase in phrases):
-            return case_type
+            matches.append((CASE_TYPE_PRIORITY.get(case_type, 0), case_type))
+
+    if matches:
+        # Tie-breaker: keep dictionary (insertion) order so the rule list is
+        # still easy to read; the score does the real disambiguation.
+        matches.sort(key=lambda item: item[0], reverse=True)
+        return matches[0][1]
 
     if history:
         top = history[0]
